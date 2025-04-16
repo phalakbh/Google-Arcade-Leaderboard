@@ -37,6 +37,9 @@ st.markdown(
     }
     /* Button styling */
     .stButton>button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
     background-color: #0F9D58 !important;
     border: 3px solid #0a7a45 !important;
     color: white !important;
@@ -48,6 +51,7 @@ st.markdown(
     text-shadow: 2px 2px 0px #085e34 !important;
     box-shadow: 3px 3px 0px #333 !important;
     transition: all 0.1s !important;
+    margin: 0 auto !important;
     }
     .stButton>button:hover {
     background-color: #DB4437 !important;
@@ -133,9 +137,24 @@ st.markdown(
     /* Style for the buttons container */
     .button-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     gap: 20px;
     margin-top: 15px;
+    width: 100%;
+    }
+    /* Center the buttons within columns */
+    .stButton {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    }
+    /* Force center alignment for column containers */
+    [data-testid="column"] {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     }
     /* Top 3 Winners Podium - Fixed layout */
     .top-winners {
@@ -272,10 +291,42 @@ st.markdown(
     margin-left: 8px;
     animation: blink 1s step-start infinite;
     }
+    /* Special fixed header for the arcade name */
+    .arcade-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(18, 18, 18, 0.8);
+    border-bottom: 2px solid #4285F4;
+    z-index: 999;
+    text-align: center;
+    padding: 5px;
+    backdrop-filter: blur(5px);
+    }
+    .arcade-header-text {
+    color: #F4B400;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    animation: glow 2s infinite;
+    }
+    /* Add margin to top to account for fixed header */
+    .main-content {
+    margin-top: 40px;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
+
+# Add fixed header for arcade name
+st.markdown("""
+<div class="arcade-header">
+    <span class="arcade-header-text">
+    HIGH SCORES - GOOGLE ARCADE 2025
+    </span>
+</div>
+""", unsafe_allow_html=True)
 
 def google_colors_style(df):
     colors = ['#4285F4', '#DB4437', '#F4B400', '#0F9D58']
@@ -391,13 +442,15 @@ def main():
     search_query = st.text_input("👾 SEARCH PLAYER:", key="search_input",
                                 help="Enter a username to find specific players")
     
-    # Centered buttons on next line
+    # IMPROVED BUTTON LAYOUT: Center-aligned using custom markup
+    st.markdown('<div style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown('<div class="button-container">', unsafe_allow_html=True)
-        search_button_col, reset_button_col = st.columns(2)
+        # Use custom HTML for proper centering of button containers
+        st.markdown('<div style="display: flex; justify-content: space-around; width: 100%;">', unsafe_allow_html=True)
+        button_cols = st.columns(2)
         
-        with search_button_col:
+        with button_cols[0]:
             if st.button("🔍 SEARCH", key="search_button"):
                 if search_query:
                     # Case-insensitive search in User Name column
@@ -412,12 +465,13 @@ def main():
                 else:
                     st.session_state.search_active = False
                     
-        with reset_button_col:
+        with button_cols[1]:
             if st.button("🔄 RESET", key="reset_button"):
                 st.session_state.search_active = False
                 st.session_state.search_results = None
         
         st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -506,23 +560,28 @@ def main():
         # Create a small placeholder to push the button container to bottom
         st.markdown('<div style="height: 50vh;"></div>', unsafe_allow_html=True)
         
-        # Add the navigation buttons
+        # IMPROVED BUTTON LAYOUT: Center align pagination buttons
         with button_container:
-            col1, col2, col3 = st.columns([4, 2, 4])
+            # Use a narrower middle column to bring buttons closer together
+            col1, col2, col3 = st.columns([3, 4, 3])
             with col2:
-                col_left, col_right = st.columns(2)
+                # Add custom centering div
+                st.markdown('<div style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
+                nav_cols = st.columns(2)
                 
                 # Previous button
-                with col_left:
+                with nav_cols[0]:
                     if st.button("⬅️ PREV", key="prev", disabled=is_first_page):
                         st.session_state.page_number -= 1
                         st.rerun()
                 
                 # Next button
-                with col_right:
+                with nav_cols[1]:
                     if st.button("NEXT ➡️", key="next", disabled=is_last_page):
                         st.session_state.page_number += 1
                         st.rerun()
+                
+                st.markdown('</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
