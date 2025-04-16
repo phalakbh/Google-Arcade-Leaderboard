@@ -155,6 +155,7 @@ def main():
         st.session_state.search_results = None
     
     # Load CSV and process data
+<<<<<<< HEAD
     csv_path = "Google-Arcade-Leaderboard\progress_report\GCAF25C1-IN-T3K-Y7E [16 Apr].csv"
     df = pd.read_csv(csv_path)
 
