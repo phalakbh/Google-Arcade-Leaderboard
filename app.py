@@ -435,6 +435,7 @@ def main():
         
         # Style and display search results
         styled_search = google_colors_style(search_df)
+        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 16, 2025</div>', unsafe_allow_html=True)
         st.write(styled_search.to_html(), unsafe_allow_html=True)
         
         # Show search result count
@@ -461,6 +462,8 @@ def main():
         
         # Style table
         styled_table = google_colors_style(page_df)
+        # Display last updated date
+        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 16, 2025</div>', unsafe_allow_html=True)
         st.write(styled_table.to_html(), unsafe_allow_html=True)
     
     # Close main content div
@@ -520,31 +523,6 @@ def main():
                     if st.button("NEXT ➡️", key="next", disabled=is_last_page):
                         st.session_state.page_number += 1
                         st.rerun()
-    
-    # Add a fun, animated scoreboard header for more arcade feel
-    st.markdown("""
-    <div style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(18, 18, 18, 0.8);
-    border-bottom: 2px solid #4285F4;
-    z-index: 999;
-    text-align: center;
-    padding: 5px;
-    backdrop-filter: blur(5px);
-    ">
-    <span style="
-    color: #F4B400;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.7rem;
-    animation: glow 2s infinite;
-    ">
-    HIGH SCORES - GOOGLE ARCADE 2025
-    </span>
-    </div>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
