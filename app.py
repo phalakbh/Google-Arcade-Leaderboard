@@ -435,12 +435,28 @@ def main():
             int(top_winners.iloc[2]["Points"]) if len(top_winners) > 2 else 0
         ), unsafe_allow_html=True)
     
+    def handle_search():
+        if st.session_state.search_input:
+            # Case-insensitive search in User Name column
+            search_results = df_sorted[df_sorted["User Name"].str.lower().str.contains(st.session_state.search_input.lower())]
+            
+            if not search_results.empty:
+                st.session_state.search_results = search_results
+                st.session_state.search_active = True
+            else:
+                st.error("PLAYER NOT FOUND! TRY AGAIN.")
+                st.session_state.search_active = False
+        else:
+            st.session_state.search_active = False
+    
+
+    
     # Add search functionality with improved UI
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
     # Centered search input with a more arcade-style look
     search_query = st.text_input("👾 SEARCH PLAYER:", key="search_input",
-                                help="Enter a username to find specific players")
+                                help="Enter a username to find specific players", placeholder="Press 🔍 SEARCH or hit ENTER to find a player...", on_change=handle_search)
     
     # IMPROVED BUTTON LAYOUT: Center-aligned using custom markup
     st.markdown('<div style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
