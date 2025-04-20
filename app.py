@@ -4,7 +4,7 @@ import pandas as pd
 # Set page layout to wide
 st.set_page_config(layout="wide")
 
-# Add arcade-themed font CSS globally
+# Add arcade-themed font CSS globally 
 st.markdown(
     """
     <style>
