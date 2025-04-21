@@ -505,7 +505,7 @@ def main():
         
         # Style and display search results
         styled_search = google_colors_style(search_df)
-        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 21, 2025</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 21, 2025</div>', unsafe_allow_html=True) 
         st.write(styled_search.to_html(), unsafe_allow_html=True)
         
         # Show search result count
