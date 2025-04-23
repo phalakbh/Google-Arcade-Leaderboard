@@ -6,7 +6,7 @@ file_date = "22 Apr"
 # Set page layout to wide
 st.set_page_config(layout="wide")
 
-# Add arcade-themed font CSS globally
+# Add arcade-themed font CSS globally 
 st.markdown(
     """
     <style>
@@ -583,7 +583,7 @@ def main():
             # Use a narrower middle column to bring buttons closer together
             col1, col2, col3 = st.columns([3, 4, 3])
             with col2:
-                # Add custom centering div
+                
                 st.markdown('<div style="display: flex; justify-content: center; width: 100%;">', unsafe_allow_html=True)
                 nav_cols = st.columns(2)
                 
