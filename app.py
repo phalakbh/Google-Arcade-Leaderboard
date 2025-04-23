@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+date = "April 2, 2025"
+file_date = "22 Apr"
 # Set page layout to wide
 st.set_page_config(layout="wide")
 
@@ -377,7 +379,7 @@ def main():
         st.session_state.search_results = None
     
     # Load CSV and process data
-    csv_path = "./progress_report/GCAF25C1-IN-T3K-Y7E [17 Apr].csv"
+    csv_path = f"./progress_report/GCAF25C1-IN-T3K-Y7E [{file_date}].csv"
     df = pd.read_csv(csv_path)
     
     # Select & rename columns
@@ -505,7 +507,7 @@ def main():
         
         # Style and display search results
         styled_search = google_colors_style(search_df)
-        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 17, 2025</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: {date}</div>', unsafe_allow_html=True)
         st.write(styled_search.to_html(), unsafe_allow_html=True)
         
         # Show search result count
@@ -533,7 +535,7 @@ def main():
         # Style table
         styled_table = google_colors_style(page_df)
         # Display last updated date
-        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated: April 17, 2025</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="text-align: left; font-family: \'Press Start 2P\', cursive; font-size: 1rem; color: #DB4437; margin-bottom: 10px;">Last Updated:{date}</div>', unsafe_allow_html=True)
         st.write(styled_table.to_html(), unsafe_allow_html=True)
     
     # Close main content div
